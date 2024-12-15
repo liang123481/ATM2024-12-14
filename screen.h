@@ -2,12 +2,16 @@
 #include<iostream>
 #include<string>
 #include<vector>
-#include"screen.h"
+#include <cstdlib> 
+#include <windows.h>
 using namespace std;
-class keypad {
+class screen {
 public:
-	void input_accandpin(int& id, int& pin,screen &screen);
-	int input_want();
-	int input_money();
-	void input_ID(int& ID);
+	void printmenu();
+	void print(string s);
+	void print(int cash);
+	void print(string name, int id, int money);
+	void screen_clear();
+	void clear_afterexit();
+	void print(int a, int b, int c, int d);
 };
