@@ -7,7 +7,7 @@ void account::addmoney(int add) {
 void account::minusmoney(int minus) {
 	money -= minus;
 }
-bool accountdatabase::check_id(int id, int& k) {
+bool Database_port::check_id(int id, int& k) {
 	//查找list有没有这个人
 	int i = 0, j = accountlist.size() - 1;
 	while (i <= j) {
@@ -25,7 +25,7 @@ bool accountdatabase::check_id(int id, int& k) {
 	}
 	return false;
 }
-bool accountdatabase::check_money(int id, int yuer) {
+bool Database_port::check_money(int id, int yuer) {
 	int i = 0, j = accountlist.size() - 1;
 	while (i <= j) {
 		int mid = (i + j) / 2;
@@ -45,7 +45,7 @@ bool accountdatabase::check_money(int id, int yuer) {
 	return false;
 	//查找有没有这个id和钱数
 }
-bool accountdatabase::check(int id, int pin, int& k) {
+bool Database_port::check(int id, int pin, int& k) {
 	int i = 0, j = accountlist.size() - 1;
 	while (i <= j) {
 		int mid = (i + j) / 2;
@@ -66,7 +66,7 @@ bool accountdatabase::check(int id, int pin, int& k) {
 	return false;
 	//检测账号密码是否正确
 }
-void accountdatabase::getmessage() {
+void Database_port::getmessage() {
 	ifstream file("accountlist.txt"); // 指定文件名
 	if (!file.is_open()) {
 		cerr << "error" << endl;
@@ -80,23 +80,13 @@ void accountdatabase::getmessage() {
 
 		// 读取数据
 		if (ss >> acc.name >> acc.ID >> acc.pin >> acc.money) {
-			// 假设 list 的数据在这一行的最后，使用剩余数据构造 accounthistory 对象
-			string historyData;
-			getline(ss, historyData); // 读取剩余的历史数据
-
-			// 使用 historyData 初始化 acc.list
-			//acc.list = accounthistory(historyData); // 根据需要修改构造函数
-
 			accountlist.push_back(acc); // 将新的 account 追加到列表中
-		}
-		else {
-			cerr << "读取文件时出错，可能是数据格式不正确：" << line << endl;
 		}
 	}
 
 	file.close();
 }
-void accountdatabase::addmessage(int k, int money, int type,int i) {
+void Database_port::addmessage(int k, int money, int type,int i) {
 	if (type == 1) {
 		modifyValueInLine("accountlist.txt", k, accountlist[k].money);
 	}
@@ -108,7 +98,7 @@ void accountdatabase::addmessage(int k, int money, int type,int i) {
 		modifyValueInLine("accountlist.txt", i, accountlist[i].money);
 	}
 }
-void accountdatabase::modifyValueInLine(const string& filename, int lineToModify, int newValue)
+void Database_port::modifyValueInLine(const string& filename, int lineToModify, int newValue)
 {
 	vector<string> lines;
 	readFile(filename, lines);
@@ -147,7 +137,7 @@ void accountdatabase::modifyValueInLine(const string& filename, int lineToModify
 		cerr << "行号超出范围" << endl;
 	}
 }
-void accountdatabase::writeFile(const string& filename, const vector<string>& lines)
+void Database_port::writeFile(const string& filename, const vector<string>& lines)
 {
 	ofstream outputFile(filename);
 	if (!outputFile) {
@@ -159,7 +149,7 @@ void accountdatabase::writeFile(const string& filename, const vector<string>& li
 	}
 	outputFile.close();
 }
-void accountdatabase::readFile(const string& filename, vector<string>& lines) {
+void Database_port::readFile(const string& filename, vector<string>& lines) {
 	ifstream inputFile(filename);
 	if (!inputFile) {
 		cerr << "无法打开文件: " << filename << endl;
