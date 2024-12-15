@@ -2,9 +2,9 @@
 #include"keypad.h"
 void keypad::input_accandpin(int& id, int& pin,screen& screen) {
 	int i = 0;
-	screen.print("input ID:");
+	screen.print("                                                 input ID:");
 	cin >> id;
-	screen.print("input pin:");
+	screen.print("                                                 input pin:");
 	cin >> pin;
 }
 int keypad::input_want() {
