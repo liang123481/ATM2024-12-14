@@ -12,11 +12,10 @@ public:
 	int ID;
 	int pin;
 	string name;
-	accounthistory list;
 	void addmoney(int add);
 	void minusmoney(int minus);
 };
-class accountdatabase {
+class Database_port {
 public:
 	vector<account>accountlist;
 	bool check_id(int id, int& k);
